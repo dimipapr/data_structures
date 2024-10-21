@@ -101,3 +101,16 @@ SingleLinkedListNode *sll_get_node(SingleLinkedList *list, int index){
     }
     return NULL;
 }
+
+int sll_find(SingleLinkedList *list, void *data){
+    if(list==NULL || data==NULL)return -3;//BAD INPUT
+    if(list->head == NULL)return -2;//EMPTY LIST
+    SingleLinkedListNode *node = list->head;
+    int index = 0;
+    while(node != NULL){
+        if(0==memcmp(data,node->data,list->data_size))return index;
+        node=node->next;
+        index++; 
+    }
+    return -1; //NO MATCH
+}

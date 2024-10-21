@@ -137,6 +137,21 @@ MU_TEST(test_sll_get_node){
     sll_destroy(list);
 }
 
+MU_TEST(test_sll_find){
+    int data[] = {8,76,-100};
+    int data_size = sizeof(int);
+    SingleLinkedList *list = sll_init(data_size);
+    sll_insert_at_tail(list,data);
+    sll_insert_at_tail(list,data+1);
+    sll_insert_at_tail(list,data+2);
+    //printf("%d",sll_find(list,data));
+    mu_assert(sll_find(list,data)==0,"Wrong index returned");
+    mu_assert(sll_find(list,data+1)==1,"Wrong index returned");
+    mu_assert(sll_find(list,data+2)==2,"Wrong index returned");
+    sll_destroy(list);
+
+}
+
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
     MU_RUN_TEST(test_sll_init_bad_input);
@@ -150,6 +165,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_traverse_print_int);
     MU_RUN_TEST(test_sll_insert_at_tail);
     MU_RUN_TEST(test_sll_get_node);
+    MU_RUN_TEST(test_sll_find);
 }
 
 int main(int argc, char *argv[]) {
