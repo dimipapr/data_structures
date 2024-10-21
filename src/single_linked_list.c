@@ -44,3 +44,22 @@ int sll_length(SingleLinkedList *list){
     }
     return count;
 }
+
+void sll_traverse(
+    SingleLinkedList *list,
+    void (*what_to_do_with_node)(SingleLinkedListNode *node)){
+        if(list==NULL)return;
+        SingleLinkedListNode *node = list->head;
+        SingleLinkedListNode *next;
+        while(node != NULL){
+            next = node->next;
+            what_to_do_with_node(node);
+            node=next;
+        } 
+}
+
+void sll_print_int(SingleLinkedListNode *node){
+    if (node==NULL)return;
+    int data = *(int *)node->data;
+    printf("%d",data);
+}
