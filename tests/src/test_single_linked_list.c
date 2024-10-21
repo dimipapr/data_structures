@@ -78,6 +78,9 @@ MU_TEST(test_sll_length){
     int data = 87;
     sll_insert_at_head(list,&data);
     mu_assert(sll_length(list)==1,"Bad list length");
+    free(list->head->data);
+    free(list->head);
+    free(list);
 }
 
 MU_TEST_SUITE(suite_sll){
