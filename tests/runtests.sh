@@ -1,3 +1,5 @@
+echo ""
+read -p 'Press enter to start testing:'
 clear
 tests=tests/bin/test*
 if [[ $1 == "tests-only" ]]; then
