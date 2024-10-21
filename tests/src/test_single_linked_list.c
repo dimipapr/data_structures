@@ -188,6 +188,23 @@ MU_TEST(test_sll_insert_at_index_insertions){
     sll_destroy(list); 
 }
 
+MU_TEST(test_sll_insert_after_key){
+    int a=10;
+    int data_size = sizeof(int);
+    SingleLinkedList *list = sll_init(data_size);
+    sll_insert_at_head(list,&a);
+    int data=87;
+    SingleLinkedListNode *node = sll_insert_after_key(list,&data,&data);
+    mu_assert(node==NULL,"Should definitely be NULL");
+    node = sll_insert_after_key(list,&data,&a);
+    int more_data=1000;
+    node = sll_insert_after_key(list,&more_data,&a);
+    mu_assert(sll_length(list)==3,"Bad length");
+    mu_assert(*(int*)(list->head->next->data)==more_data,"Bad data");
+    // sll_traverse(list,sll_print_int);
+
+}
+
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
     MU_RUN_TEST(test_sll_init_bad_input);
@@ -204,6 +221,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_find);
     MU_RUN_TEST(test_sll_insert_at_index_bad_inputs);
     MU_RUN_TEST(test_sll_insert_at_index_insertions);
+    MU_RUN_TEST(test_sll_insert_after_key);
 }
 
 int main(int argc, char *argv[]) {

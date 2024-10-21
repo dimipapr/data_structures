@@ -128,3 +128,10 @@ SingleLinkedListNode *sll_insert_at_index(SingleLinkedList *list,void *data, int
     node->next = new_node;
     return node;
 }
+
+SingleLinkedListNode *sll_insert_after_key(SingleLinkedList *list, void *data, void *key){
+    if(list==NULL||data==NULL||key==NULL)return NULL;
+    int index = sll_find(list,key);
+    if (index<0)return NULL;
+    return sll_insert_at_index(list, data, index+1);
+}
