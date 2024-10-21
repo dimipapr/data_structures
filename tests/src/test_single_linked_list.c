@@ -69,6 +69,16 @@ MU_TEST(test_sll_insert_at_head_one_insert){
     free(list->head);
     free(list);
 }
+MU_TEST(test_sll_length){
+    SingleLinkedList *list=NULL;
+    mu_assert(sll_length(list)==-1,"Should return -1 when list arg is NULL");
+    int data_size = sizeof(int);
+    list = sll_init(data_size);
+    mu_assert(sll_length(list)==0,"Should return 0 on empty list");
+    int data = 87;
+    sll_insert_at_head(list,&data);
+    mu_assert(sll_length(list)==1,"Bad list length");
+}
 
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
@@ -78,6 +88,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_node_init_initial_values);
     MU_RUN_TEST(test_sll_insert_at_head_bad_input);
     MU_RUN_TEST(test_sll_insert_at_head_one_insert);
+    MU_RUN_TEST(test_sll_length);
 }
 
 int main(int argc, char *argv[]) {

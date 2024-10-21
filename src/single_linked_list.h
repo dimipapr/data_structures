@@ -15,5 +15,6 @@ SingleLinkedList *sll_init(int data_size);
 SingleLinkedListNode *sll_node_init(int  data_size);
 
 SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data);
+int sll_length(SingleLinkedList *list);
 
 #endif

@@ -28,3 +28,5 @@ SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data){
     memcpy(list->head->data,data,list->data_size);
     return node;
 }
+int sll_length(SingleLinkedList *list){
+}
