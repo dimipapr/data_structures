@@ -117,17 +117,14 @@ int sll_find(SingleLinkedList *list, void *data){
 
 SingleLinkedListNode *sll_insert_at_index(SingleLinkedList *list,void *data, int index){
     if(list==NULL||index<0)return NULL;
-    SingleLinkedListNode *node = sll_get_node(list,index);
-    if (node==NULL){
-        if(index==0){
-            node = sll_insert_at_head(list,data);
-            return node;
-        }
-        node = sll_get_node(list,index-1);
-        if(node == NULL)return NULL;
-        node->next = sll_node_init(list->data_size);
-        node=node->next;
+    if(index==0){
+        return sll_insert_at_head(list,data);
     }
-    memcpy(node->data,data,list->data_size);
+    SingleLinkedListNode *node = sll_get_node(list,index-1);
+    if(node==NULL)return NULL;
+    SingleLinkedListNode *new_node = sll_node_init(list->data_size);
+    memcpy(new_node->data,data,list->data_size);
+    new_node->next = node->next;
+    node->next = new_node;
     return node;
 }

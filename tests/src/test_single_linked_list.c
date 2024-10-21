@@ -170,6 +170,23 @@ MU_TEST(test_sll_insert_at_index_bad_inputs){
     mu_assert(node!=NULL,"Should not be NULL with index=1 at an empty list");
     sll_destroy(list);
 }
+MU_TEST(test_sll_insert_at_index_insertions){
+    int data = 87;
+    int data_size = sizeof(int);
+    SingleLinkedList *list = sll_init(data_size);
+    sll_insert_at_index(list,&data,0);
+    mu_assert(memcmp(&data,list->head->data,list->data_size)==0,"Bad insertion at empty list");
+    SingleLinkedListNode *node = sll_insert_at_index(list, &data,76);
+    mu_assert(node==NULL,"Should be null with outofbbounds index");
+    sll_insert_at_index(list,&data,0);
+    mu_assert_int_eq(data,*(int*)list->head->data);
+    sll_insert_at_index(list,&data,0);
+    mu_assert_int_eq(data,*(int*)list->head->next->data);
+    int moredata = 32;
+    sll_insert_at_index(list,&moredata,1);
+    mu_assert_int_eq(moredata,*(int*)list->head->next->data);  
+    sll_destroy(list); 
+}
 
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
@@ -186,6 +203,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_get_node);
     MU_RUN_TEST(test_sll_find);
     MU_RUN_TEST(test_sll_insert_at_index_bad_inputs);
+    MU_RUN_TEST(test_sll_insert_at_index_insertions);
 }
 
 int main(int argc, char *argv[]) {
