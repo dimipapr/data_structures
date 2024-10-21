@@ -39,6 +39,23 @@ MU_TEST(sll_node_init_initial_values){
     mu_assert(node->next==NULL,"node->next is not null after creation");
     free(node);
 }
+MU_TEST(sll_insert_at_head_bad_input){
+    int data_size = sizeof(int);
+    int data = 25;
+    int *datap=NULL;
+    SingleLinkedList *list=NULL;
+    SingleLinkedListNode *node;
+    node = sll_insert_at_head(list,datap);
+    mu_assert(node==NULL,"Not NULL with (NULL,NULL) input");
+    datap = &data;
+    node = sll_insert_at_head(list,datap);
+    mu_assert(node==NULL,"Not NULL with (NULL,data) input");
+    datap=NULL;
+    list = sll_init(data_size);
+    node = sll_insert_at_head(list,datap);
+    mu_assert(node==NULL,"Not NULL with (list,NULL) input");
+    free(list);
+}
 
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
@@ -46,6 +63,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(sll_init_initial_values);
     MU_RUN_TEST(sll_node_init_bad_input);
     MU_RUN_TEST(sll_node_init_initial_values);
+    MU_RUN_TEST(sll_insert_at_head_bad_input);
 }
 
 int main(int argc, char *argv[]) {
