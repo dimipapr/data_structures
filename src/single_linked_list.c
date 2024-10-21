@@ -8,3 +8,11 @@ SingleLinkedList *sll_init(int data_size){
     list->head = NULL;
     return list;
 }
+
+SingleLinkedListNode *sll_node_init(int data_size){
+    if (data_size<=0)return NULL;
+    SingleLinkedListNode *node = malloc(sizeof(SingleLinkedListNode));
+    node->data = NULL;
+    node->next = NULL;
+    return node;
+}
