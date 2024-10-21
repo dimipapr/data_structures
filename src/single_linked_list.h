@@ -13,13 +13,17 @@ typedef struct{
 
 SingleLinkedList *sll_init(int data_size);
 SingleLinkedListNode *sll_node_init(int  data_size);
-void sll_node_destroy(SingleLinkedListNode *node);
+SingleLinkedListNode *sll_node_destroy(SingleLinkedListNode *node);
 
 SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data);
 int sll_length(SingleLinkedList *list);
 
-void sll_traverse(SingleLinkedList *list, void (*what_to_do_with_node)(SingleLinkedListNode *node));
+void sll_traverse(
+    SingleLinkedList *list,
+    SingleLinkedListNode *(*what_to_do_with_node)(SingleLinkedListNode *node));
 
+SingleLinkedListNode *sll_print_int(SingleLinkedListNode *node);
+void sll_destroy(SingleLinkedList *list);
 
 
 #endif

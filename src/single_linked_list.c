@@ -1,5 +1,6 @@
 #include "single_linked_list.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 SingleLinkedList *sll_init(int data_size){
@@ -19,10 +20,11 @@ SingleLinkedListNode *sll_node_init(int data_size){
     return node;
 }
 
-void sll_node_destroy(SingleLinkedListNode *node){
-    if (node == NULL)return;
+SingleLinkedListNode *sll_node_destroy(SingleLinkedListNode *node){
+    if (node == NULL)return 0;
     free(node->data);
     free(node);
+    return 0;
 }
 
 SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data){
@@ -47,19 +49,27 @@ int sll_length(SingleLinkedList *list){
 
 void sll_traverse(
     SingleLinkedList *list,
-    void (*what_to_do_with_node)(SingleLinkedListNode *node)){
-        if(list==NULL)return;
-        SingleLinkedListNode *node = list->head;
-        SingleLinkedListNode *next;
-        while(node != NULL){
-            next = node->next;
-            what_to_do_with_node(node);
-            node=next;
-        } 
+    SingleLinkedListNode *(*what_to_do_with_node)(SingleLinkedListNode *node)
+)
+{
+    if(list==NULL)return;
+    SingleLinkedListNode *node = list->head;
+    SingleLinkedListNode *next;
+    while(node != NULL){
+        next = node->next;
+        what_to_do_with_node(node);
+        node=next;
+    } 
 }
 
-void sll_print_int(SingleLinkedListNode *node){
-    if (node==NULL)return;
+void sll_destroy(SingleLinkedList *list){
+    sll_traverse(list, sll_node_destroy);
+}
+
+
+SingleLinkedListNode *sll_print_int(SingleLinkedListNode *node){
+    if (node==NULL)return NULL;
     int data = *(int *)node->data;
     printf("%d",data);
+    return NULL;
 }

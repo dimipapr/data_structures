@@ -92,6 +92,20 @@ MU_TEST(test_sll_node_destroy){
 
 }
 
+MU_TEST(test_sll_traverse_print_int){
+    //create a list with 3 nodes
+    int a=0,b=1,c=2;
+    int data_size = sizeof(int);
+    SingleLinkedList *list=NULL;
+    list = sll_init(data_size);
+    sll_insert_at_head(list,&c);
+    sll_insert_at_head(list,&b);
+    sll_insert_at_head(list,&a);
+    sll_traverse(list,sll_print_int);
+    sll_traverse(list,sll_node_destroy);
+    free(list);
+}
+
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
     MU_RUN_TEST(test_sll_init_bad_input);
@@ -102,6 +116,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_insert_at_head_one_insert);
     MU_RUN_TEST(test_sll_length);
     MU_RUN_TEST(test_sll_node_destroy);
+    MU_RUN_TEST(test_sll_traverse_print_int);
 }
 
 int main(int argc, char *argv[]) {
