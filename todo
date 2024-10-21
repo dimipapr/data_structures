@@ -1,15 +1,15 @@
 insertion
     ->head x
     ->tail x
-    ->after key
-    ->position
+    ->after key x
+    ->position x
 deletion
     ->whole list x
     ->by key     
     ->by index
 search
-    ->by key
-    ->by index
-length
-
+    ->by key x
+    ->by index x
+length x
+compare function
 ---->>>>>TEST COVERAGE
