@@ -16,3 +16,5 @@ SingleLinkedListNode *sll_node_init(int data_size){
     node->next = NULL;
     return node;
 }
+
+SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data);
