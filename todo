@@ -1,0 +1,12 @@
+insertion
+    ->head
+    ->tail
+    ->after key
+    ->position
+deletion
+    ->by key
+    ->by index
+search
+    ->by key
+    ->by index
+length
