@@ -114,3 +114,20 @@ int sll_find(SingleLinkedList *list, void *data){
     }
     return -1; //NO MATCH
 }
+
+SingleLinkedListNode *sll_insert_at_index(SingleLinkedList *list,void *data, int index){
+    if(list==NULL||index<0)return NULL;
+    SingleLinkedListNode *node = sll_get_node(list,index);
+    if (node==NULL){
+        if(index==0){
+            node = sll_insert_at_head(list,data);
+            return node;
+        }
+        node = sll_get_node(list,index-1);
+        if(node == NULL)return NULL;
+        node->next = sll_node_init(list->data_size);
+        node=node->next;
+    }
+    memcpy(node->data,data,list->data_size);
+    return node;
+}

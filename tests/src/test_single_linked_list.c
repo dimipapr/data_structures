@@ -152,6 +152,25 @@ MU_TEST(test_sll_find){
 
 }
 
+MU_TEST(test_sll_insert_at_index_bad_inputs){
+    SingleLinkedList *list = NULL;
+    SingleLinkedListNode *node;
+    int data = 76;
+    int data_size = sizeof(int);
+    node = sll_insert_at_index(list,&data,0);
+    mu_assert(node==NULL,"Should return NULL with NULL list input");
+    list = sll_init(data_size);
+    node = sll_insert_at_index(list,NULL,0);
+    mu_assert(node==NULL,"Should be NULL with NULL data");
+    node = sll_insert_at_index(list, &data, -1);
+    mu_assert(node==NULL,"Should be NULL negative index");
+    node = sll_insert_at_index(list, &data, 1);
+    mu_assert(node==NULL,"Should be NULL with index=1 at an empty list");
+    node = sll_insert_at_index(list, &data, 0);
+    mu_assert(node!=NULL,"Should not be NULL with index=1 at an empty list");
+    sll_destroy(list);
+}
+
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
     MU_RUN_TEST(test_sll_init_bad_input);
@@ -166,6 +185,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_insert_at_tail);
     MU_RUN_TEST(test_sll_get_node);
     MU_RUN_TEST(test_sll_find);
+    MU_RUN_TEST(test_sll_insert_at_index_bad_inputs);
 }
 
 int main(int argc, char *argv[]) {

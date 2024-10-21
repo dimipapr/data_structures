@@ -29,6 +29,9 @@ void sll_destroy(SingleLinkedList *list);
 int sll_find(SingleLinkedList *list, void *data);
 SingleLinkedListNode *sll_get_node(SingleLinkedList *list, int index);
 
+SingleLinkedListNode *sll_insert_after_key(SingleLinkedList *list,void *data, void *key);
+SingleLinkedListNode *sll_insert_at_index(SingleLinkedList *list,void *data, int index);
+
 
 
 #endif
