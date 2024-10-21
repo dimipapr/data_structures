@@ -26,6 +26,9 @@ void sll_traverse(
 SingleLinkedListNode *sll_print_int(SingleLinkedListNode *node);
 void sll_destroy(SingleLinkedList *list);
 
+int sll_find(SingleLinkedList *list, void *data);
+SingleLinkedListNode *sll_get_node(SingleLinkedList *list, int index);
+
 
 
 #endif

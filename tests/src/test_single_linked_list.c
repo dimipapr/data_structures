@@ -115,6 +115,27 @@ MU_TEST(test_sll_insert_at_tail){
     sll_traverse(list,sll_print_int);
     sll_destroy(list);
 }
+MU_TEST(test_sll_get_node){
+    SingleLinkedListNode *ret=sll_get_node(NULL,0);
+    int data[] = {0,1,2};
+    int data_size = sizeof(int);
+    SingleLinkedList *list = sll_init(data_size);
+    mu_assert(ret==NULL,"Should be NULL when list is null");
+    sll_insert_at_head(list,data);
+    sll_insert_at_tail(list,data+1);
+    sll_insert_at_tail(list,data+2);
+    ret = sll_get_node(list,-1);
+    mu_assert(ret==NULL,"Should be null when index<0");
+    ret = sll_get_node(list,3);
+    mu_assert(ret==NULL,"Should be null when index is bigger than list length");
+    int ret_data = *(int*)sll_get_node(list,0)->data;
+    mu_assert(ret_data == 0,"Bad data from get_node()");
+    ret_data = *(int*)sll_get_node(list,1)->data;
+    mu_assert(ret_data == 1,"Bad data from get_node()");
+    ret_data = *(int*)sll_get_node(list,2)->data;
+    mu_assert(ret_data == 2,"Bad data from get_node()");
+    sll_destroy(list);
+}
 
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
@@ -128,6 +149,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_node_destroy);
     MU_RUN_TEST(test_sll_traverse_print_int);
     MU_RUN_TEST(test_sll_insert_at_tail);
+    MU_RUN_TEST(test_sll_get_node);
 }
 
 int main(int argc, char *argv[]) {

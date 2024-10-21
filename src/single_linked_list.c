@@ -88,3 +88,16 @@ SingleLinkedListNode *sll_print_int(SingleLinkedListNode *node){
     printf("%d",data);
     return NULL;
 }
+
+SingleLinkedListNode *sll_get_node(SingleLinkedList *list, int index){
+    if(list == NULL||index<0)return NULL;
+    if(sll_length(list)<index)return NULL;
+    SingleLinkedListNode *node = list->head;
+    int count=0;
+    while(node!=NULL){
+        if(count == index)return node;
+        node = node->next;
+        count++;
+    }
+    return NULL;
+}
