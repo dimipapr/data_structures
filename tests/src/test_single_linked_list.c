@@ -101,9 +101,19 @@ MU_TEST(test_sll_traverse_print_int){
     sll_insert_at_head(list,&c);
     sll_insert_at_head(list,&b);
     sll_insert_at_head(list,&a);
-    sll_traverse(list,sll_print_int);
+    //sll_traverse(list,sll_print_int);
     sll_traverse(list,sll_node_destroy);
     free(list);
+}
+MU_TEST(test_sll_insert_at_tail){
+    int a=0,b=1,c=2;
+    int data_size = sizeof(int);
+    SingleLinkedList *list = sll_init(data_size);
+    sll_insert_at_tail(list,&a);
+    sll_insert_at_tail(list,&b);
+    sll_insert_at_tail(list,&c);
+    sll_traverse(list,sll_print_int);
+    sll_destroy(list);
 }
 
 MU_TEST_SUITE(suite_sll){
@@ -117,6 +127,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_length);
     MU_RUN_TEST(test_sll_node_destroy);
     MU_RUN_TEST(test_sll_traverse_print_int);
+    MU_RUN_TEST(test_sll_insert_at_tail);
 }
 
 int main(int argc, char *argv[]) {

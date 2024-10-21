@@ -17,6 +17,7 @@ SingleLinkedListNode *sll_node_destroy(SingleLinkedListNode *node);
 
 SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data);
 int sll_length(SingleLinkedList *list);
+SingleLinkedListNode *sll_insert_at_tail(SingleLinkedList *list, void *data);
 
 void sll_traverse(
     SingleLinkedList *list,
@@ -24,6 +25,7 @@ void sll_traverse(
 
 SingleLinkedListNode *sll_print_int(SingleLinkedListNode *node);
 void sll_destroy(SingleLinkedList *list);
+
 
 
 #endif

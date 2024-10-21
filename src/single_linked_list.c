@@ -36,6 +36,20 @@ SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data){
     memcpy(list->head->data,data,list->data_size);
     return node;
 }
+SingleLinkedListNode *sll_insert_at_tail(SingleLinkedList *list, void *data){
+    if(list==NULL||data==NULL)return NULL;
+    //create node
+    SingleLinkedListNode *newNode = sll_node_init(list->data_size);
+    memcpy(newNode->data,data,list->data_size);
+    //find tail
+    SingleLinkedListNode *node=list->head;
+    if(node == NULL){list->head = newNode;}
+    else{
+        while(node->next != NULL)node = node->next;
+        node->next = newNode;
+    }
+    return newNode;
+}
 int sll_length(SingleLinkedList *list){
     if (list==NULL)return -1;
     int count =0;
@@ -64,6 +78,7 @@ void sll_traverse(
 
 void sll_destroy(SingleLinkedList *list){
     sll_traverse(list, sll_node_destroy);
+    free(list);
 }
 
 
