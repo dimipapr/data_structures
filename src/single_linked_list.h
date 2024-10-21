@@ -12,5 +12,6 @@ typedef struct{
 }SingleLinkedList;
 
 SingleLinkedList *sll_init(int data_size);
+SingleLinkedListNode *sll_node_init(SingleLinkedList *list);
 
 #endif
