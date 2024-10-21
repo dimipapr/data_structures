@@ -8,14 +8,16 @@ TEST_SOURCES = $(wildcard tests/src/*.c)
 TEST_OBJECTS = $(patsubst tests/src/%.c,tests/build/%.o,$(TEST_SOURCES))
 TEST_BINS = $(patsubst tests/src/%.c,tests/bin/%,$(TEST_SOURCES))
 
-test: $(LIB_OBJECTS) $(TEST_BINS)
+test: build
 	@bash ./tests/runtests.sh tests-only
+
+build: $(LIB_OBJECTS) $(TEST_BINS)
 
 memcheck: $(LIB_OBJECTS) $(TEST_BINS)
 	@bash ./tests/runtests.sh
 
 build/%.o: src/%.c src/*.h
-	@mkdir build
+	@mkdir -p build
 	gcc -c $(CFLAGS) $< -o $@
 
 tests/bin/test_%:tests/build/test_%.o $(LIB_OBJECTS)
@@ -33,4 +35,4 @@ clean:
 	@rm -rf tests/bin
 
 .PRECIOUS: tests/build/test_%.o
-.PHONY: clean
+.PHONY: clean test memcheck build
