@@ -83,6 +83,15 @@ MU_TEST(test_sll_length){
     free(list);
 }
 
+MU_TEST(test_sll_node_destroy){
+    SingleLinkedListNode *node = NULL;
+    sll_node_destroy(node);//should just run
+    int data_size = sizeof(int);
+    node = sll_node_init(data_size);
+    sll_node_destroy(node);
+
+}
+
 MU_TEST_SUITE(suite_sll){
     MU_SUITE_CONFIGURE(suite_sll_setup,suite_sll_teardown);
     MU_RUN_TEST(test_sll_init_bad_input);
@@ -92,6 +101,7 @@ MU_TEST_SUITE(suite_sll){
     MU_RUN_TEST(test_sll_insert_at_head_bad_input);
     MU_RUN_TEST(test_sll_insert_at_head_one_insert);
     MU_RUN_TEST(test_sll_length);
+    MU_RUN_TEST(test_sll_node_destroy);
 }
 
 int main(int argc, char *argv[]) {

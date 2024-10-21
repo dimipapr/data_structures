@@ -19,6 +19,12 @@ SingleLinkedListNode *sll_node_init(int data_size){
     return node;
 }
 
+void sll_node_destroy(SingleLinkedListNode *node){
+    if (node == NULL)return;
+    free(node->data);
+    free(node);
+}
+
 SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data){
     if(list==NULL||data==NULL)return NULL;
     SingleLinkedListNode *node = sll_node_init(list->data_size);
