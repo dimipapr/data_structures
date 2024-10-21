@@ -29,4 +29,12 @@ SingleLinkedListNode *sll_insert_at_head(SingleLinkedList *list, void *data){
     return node;
 }
 int sll_length(SingleLinkedList *list){
+    if (list==NULL)return -1;
+    int count =0;
+    SingleLinkedListNode *node = list->head;
+    while(node != NULL){
+        node = node->next;
+        count ++;
+    }
+    return count;
 }
