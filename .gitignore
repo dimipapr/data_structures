@@ -1,0 +1,7 @@
+report
+build
+tests/build
+tests/bin
+scripts/pid
+*.info
+*.gcov
