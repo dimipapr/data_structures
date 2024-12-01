@@ -2,7 +2,7 @@
 #include "single_linked_list.h"
 
 #include <stdlib.h>
-
+//sll_create
 MU_TEST(test_sll_create__invalid_input){
 	int data_size = 0;
 	SingleLinkedList *list = sll_create(data_size);
@@ -23,12 +23,38 @@ MU_TEST(test_sll_create__initial_values){
 	mu_assert(list->head == NULL, "list.head should initialize to NULL");
 	free(list);
 }
+//sll_node_create
+MU_TEST(test_sll_node_create__bad_input){
+	SingleLinkedList *list=NULL;
+	SLL_Node *node = sll_node_create(list);
+	mu_assert(node == NULL, "sll_node_create() should return NULL if list is NULL");
+}
+
+MU_TEST(test_sll_node_create__initial_values){
+	int data_size = 20;
+	SingleLinkedList *list = sll_create(data_size);
+	SLL_Node *node = sll_node_create(list);
+	mu_assert(node != NULL, "node should not be NULL here");
+	mu_assert(node->data != NULL, "node->data should not be NULL");
+	mu_assert(node->next == NULL, "node->next should initialize to NULL");
+	void *testptr = malloc(data_size);
+	memcpy(testptr, node->data,data_size);//making sure node->data is accessible
+	free(node->data);
+	free(node);
+	free(list);
+}
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
-
+	
+	//sll_create
 	MU_RUN_TEST(test_sll_create__invalid_input);
 	MU_RUN_TEST(test_sll_create__initial_values);
+
+	//sll_node_create
+	MU_RUN_TEST(test_sll_node_create__bad_input);
+	MU_RUN_TEST(test_sll_node_create__initial_values);
+
 }
 
 int main() {
