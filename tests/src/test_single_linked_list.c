@@ -25,20 +25,27 @@ MU_TEST(test_sll_create__initial_values){
 }
 //sll_node_create
 MU_TEST(test_sll_node_create__bad_input){
-	SingleLinkedList *list=NULL;
-	SLL_Node *node = sll_node_create(list);
+	SingleLinkedList *null_list=NULL;
+	int *null_data = NULL;
+	SingleLinkedList *list = sll_create(sizeof(int));
+	int data = 10;
+	SLL_Node *node = sll_node_create(null_list, &data);
 	mu_assert(node == NULL, "sll_node_create() should return NULL if list is NULL");
+	node = sll_node_create(list, null_data);
+	mu_assert(node == NULL, "sll_node_create() should return NULL if data is NULL");
+	node = sll_node_create(null_list, null_data);
+	mu_assert(node == NULL, "sll_node_create() should return NULL if both list and data is NULL");
 }
 
 MU_TEST(test_sll_node_create__initial_values){
-	int data_size = 20;
+	int data_size = sizeof(double);
+	double data = 2e+10;
 	SingleLinkedList *list = sll_create(data_size);
-	SLL_Node *node = sll_node_create(list);
+	SLL_Node *node = sll_node_create(list,&data);
 	mu_assert(node != NULL, "node should not be NULL here");
 	mu_assert(node->data != NULL, "node->data should not be NULL");
 	mu_assert(node->next == NULL, "node->next should initialize to NULL");
-	void *testptr = malloc(data_size);
-	memcpy(testptr, node->data,data_size);//making sure node->data is accessible
+	mu_assert(*(double*)node->data == data, "Bad node->data value");
 	free(node->data);
 	free(node);
 	free(list);
@@ -51,9 +58,10 @@ MU_TEST(test_sll_node_destroy__bad_input){
 	mu_check(1);
 }
 MU_TEST(test_sll_node_destroy__null_data){
-	SingleLinkedList *list = sll_create(1);
+	SingleLinkedList *list = sll_create(sizeof(int));
 	mu_check(list);
-	SLL_Node *node = sll_node_create(list);
+	int data = 1;
+	SLL_Node *node = sll_node_create(list, &data);
 	mu_check(node);
 	free(node->data);
 	node->data = NULL;
@@ -62,9 +70,10 @@ MU_TEST(test_sll_node_destroy__null_data){
 	mu_check(1);
 }
 MU_TEST(test_sll_node_destroy__normal_op){
-	SingleLinkedList *list = sll_create(1);
+	int data = 10;
+	SingleLinkedList *list = sll_create(sizeof(int));
 	mu_check(list);
-	SLL_Node *node = sll_node_create(list);
+	SLL_Node *node = sll_node_create(list, &data);
 	mu_check(node);
 	sll_node_destroy(node);
 	mu_check(1);

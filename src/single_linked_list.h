@@ -29,9 +29,10 @@ SingleLinkedList *sll_create(int data_size);
 /**
  * Create a new Single Linked List Node
  * @param[in] list Single linked list associated with the created node
+ * @param[in] data Data to be copied in the node
  * @returns A pointer to the created single linked list node, NULL if list is NULL
  */
-SLL_Node *sll_node_create(SingleLinkedList *list);
+SLL_Node *sll_node_create(SingleLinkedList *list, void *data);
 
 /**
  * Frees all associated memory of a given single linked list node
