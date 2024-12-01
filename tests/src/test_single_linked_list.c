@@ -1,6 +1,8 @@
 #include "minunit.h"
 #include "single_linked_list.h"
 
+#include <stdlib.h>
+
 MU_TEST(test_sll_create__invalid_input){
 	int data_size = 0;
 	SingleLinkedList *list = sll_create(data_size);
@@ -19,6 +21,7 @@ MU_TEST(test_sll_create__initial_values){
 	mu_assert(list != NULL, "sll_create() should not return NULL here");
 	mu_assert(list->data_size == data_size, "list.data_size != data_size");
 	mu_assert(list->head == NULL, "list.head should initialize to NULL");
+	free(list);
 }
 
 MU_TEST_SUITE(test_suite) {
