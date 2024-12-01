@@ -35,6 +35,7 @@ MU_TEST(test_sll_node_create__bad_input){
 	mu_assert(node == NULL, "sll_node_create() should return NULL if data is NULL");
 	node = sll_node_create(null_list, null_data);
 	mu_assert(node == NULL, "sll_node_create() should return NULL if both list and data is NULL");
+	free(list);
 }
 
 MU_TEST(test_sll_node_create__initial_values){
@@ -77,6 +78,7 @@ MU_TEST(test_sll_node_destroy__normal_op){
 	mu_check(node);
 	sll_node_destroy(node);
 	mu_check(1);
+	free(list);
 }
 
 MU_TEST_SUITE(test_suite) {
