@@ -3,6 +3,8 @@
 
 SingleLinkedList *sll_create(int data_size){
     if( data_size<=0 || data_size > SLL_MAX_NODE_DATASIZE_BYTES )return NULL;
-    SingleLinkedList *list = malloc(data_size);
+    SingleLinkedList *list = malloc(sizeof(SingleLinkedList));
+    list->data_size = data_size;
+    list->head = NULL;
     return list;
 }

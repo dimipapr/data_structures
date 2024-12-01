@@ -19,6 +19,11 @@ typedef struct SingleLinkedList{
     SLL_Node *head; /** Pointer to the head of the list */
 }SingleLinkedList;
 
+/**
+ * Creater a new single linked list.
+ * @param[in] data_size Size in bytes of the node data field
+ * @returns A pointer to the created single linked list, NULL if data_size<=0 or data_size>SLL_MAX_NODE_DATASIZE_BYTES
+ */
 SingleLinkedList *sll_create(int data_size);
 
 #endif

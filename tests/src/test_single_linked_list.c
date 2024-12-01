@@ -13,17 +13,19 @@ MU_TEST(test_sll_create__invalid_input){
 	mu_assert(list == NULL, "sll_create() should return NULL with input > SLL_MAX_NODE_DATASIZE_BYTES");
 }
 
-MU_TEST(test_sll_create__normal_operation){
+MU_TEST(test_sll_create__initial_values){
 	int data_size=20;
 	SingleLinkedList *list = sll_create(data_size);
 	mu_assert(list != NULL, "sll_create() should not return NULL here");
+	mu_assert(list->data_size == data_size, "list.data_size != data_size");
+	mu_assert(list->head == NULL, "list.head should initialize to NULL");
 }
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
 	MU_RUN_TEST(test_sll_create__invalid_input);
-	MU_RUN_TEST(test_sll_create__normal_operation);
+	MU_RUN_TEST(test_sll_create__initial_values);
 }
 
 int main() {
