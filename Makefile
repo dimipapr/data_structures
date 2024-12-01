@@ -2,7 +2,7 @@ LIB_NAME=data_structures
 LIB_TARGET_DEBUG=build/lib$(LIB_NAME).a
 
 CC=gcc
-CFLAGS=-Wall -Wextra
+CFLAGS=-Wall -Wextra -std=c11
 CFLAGS_COVERAGE=-fprofile-arcs -ftest-coverage
 CFLAGS_DEBUG=-g -Og -DDEBUG
 INC_FLAGS_DEBUG=-I./tests/src -I./src
