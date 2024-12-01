@@ -1,5 +1,6 @@
 report
 build
+coverage
 tests/build
 tests/bin
 scripts/pid
