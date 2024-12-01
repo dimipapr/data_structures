@@ -30,3 +30,19 @@ void sll_node_destroy(SLL_Node *node){
     if(node->data != NULL)free(node->data);
     free(node);
 }
+
+void sll_traverse(SingleLinkedList *list, void (*node_action)(SLL_Node *node)){
+    if (list == NULL)return;
+    SLL_Node *node = list->head;
+    while(node != NULL){
+        SLL_Node *next = node->next;
+        node_action(node);
+        node = next;
+    }
+}
+
+void sll_destroy(SingleLinkedList *list){
+    if (list == NULL) return;
+    sll_traverse(list, &sll_node_destroy);
+    free(list);
+}

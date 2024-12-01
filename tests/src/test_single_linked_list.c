@@ -80,6 +80,30 @@ MU_TEST(test_sll_node_destroy__normal_op){
 	mu_check(1);
 	free(list);
 }
+//sll_destroy
+MU_TEST(test_sll_destroy__bad_input){
+	sll_destroy(NULL);
+	mu_check(1);
+}
+MU_TEST(test_sll_destroy__empty_list){
+	SingleLinkedList *list = sll_create(20);
+	mu_check(list);
+	sll_destroy(list);
+	mu_check(1);
+}
+MU_TEST(test_sll_destroy__list_of_three_integers){
+	SingleLinkedList *list = sll_create(sizeof(int));
+	mu_check(list);
+	int array_of_ints[]={0,1,2};
+	list->head = sll_node_create(list, array_of_ints);
+	mu_check(list->head);
+	list->head->next = sll_node_create(list, array_of_ints+1);
+	mu_check(list->head->next);
+	list->head->next->next = sll_node_create(list, array_of_ints+2);
+	mu_check(list->head->next->next);
+	sll_destroy(list);
+	mu_check(1);
+}
 
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -95,7 +119,10 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_sll_node_destroy__bad_input);
 	MU_RUN_TEST(test_sll_node_destroy__null_data);
 	MU_RUN_TEST(test_sll_node_destroy__normal_op);
-
+	//sll_destroy
+	MU_RUN_TEST(test_sll_destroy__bad_input);
+	MU_RUN_TEST(test_sll_destroy__empty_list);
+	MU_RUN_TEST(test_sll_destroy__list_of_three_integers);
 }
 
 int main() {

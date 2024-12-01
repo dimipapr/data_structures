@@ -36,9 +36,24 @@ SLL_Node *sll_node_create(SingleLinkedList *list, void *data);
 
 /**
  * Frees all associated memory of a given single linked list node
- * @param node
+ * @param[in] node
  * @returns Nothing
  */
 void sll_node_destroy(SLL_Node *node);
+
+/**
+ * Traverses through the list and performs an action on every node
+ * @param[in] list
+ * @param[in] node_action Function pointer to the action to be performed on each node
+ * @returns Nothing
+ */
+void sll_traverse(SingleLinkedList *list, void (*node_action)(SLL_Node *node));
+
+/**
+ * Frees all associated memory of a single linked list
+ * @param[in] list
+ * @returns Nothing
+ */
+void sll_destroy(SingleLinkedList *list);
 
 #endif
