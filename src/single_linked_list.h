@@ -33,4 +33,11 @@ SingleLinkedList *sll_create(int data_size);
  */
 SLL_Node *sll_node_create(SingleLinkedList *list);
 
+/**
+ * Frees all associated memory of a given single linked list node
+ * @param node
+ * @returns Nothing
+ */
+void sll_node_destroy(SLL_Node *node);
+
 #endif

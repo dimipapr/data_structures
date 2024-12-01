@@ -44,6 +44,32 @@ MU_TEST(test_sll_node_create__initial_values){
 	free(list);
 }
 
+//sll_node_destroy
+MU_TEST(test_sll_node_destroy__bad_input){
+	SLL_Node *node = NULL;
+	sll_node_destroy(node);
+	mu_check(1);
+}
+MU_TEST(test_sll_node_destroy__null_data){
+	SingleLinkedList *list = sll_create(1);
+	mu_check(list);
+	SLL_Node *node = sll_node_create(list);
+	mu_check(node);
+	free(node->data);
+	node->data = NULL;
+	sll_node_destroy(node);
+	free(list);
+	mu_check(1);
+}
+MU_TEST(test_sll_node_destroy__normal_op){
+	SingleLinkedList *list = sll_create(1);
+	mu_check(list);
+	SLL_Node *node = sll_node_create(list);
+	mu_check(node);
+	sll_node_destroy(node);
+	mu_check(1);
+}
+
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 	
@@ -54,6 +80,10 @@ MU_TEST_SUITE(test_suite) {
 	//sll_node_create
 	MU_RUN_TEST(test_sll_node_create__bad_input);
 	MU_RUN_TEST(test_sll_node_create__initial_values);
+	//sll_node_destroy
+	MU_RUN_TEST(test_sll_node_destroy__bad_input);
+	MU_RUN_TEST(test_sll_node_destroy__null_data);
+	MU_RUN_TEST(test_sll_node_destroy__normal_op);
 
 }
 

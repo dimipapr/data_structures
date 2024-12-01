@@ -15,10 +15,16 @@ SLL_Node *sll_node_create(SingleLinkedList *list){
     SLL_Node *node = malloc(sizeof(SLL_Node));
     if(node == NULL)return NULL;
     node->data = malloc(list->data_size);
-    if (node->data == NULL){
+    if (node->data == NULL){ //malloc fails
         free(node);
         return NULL;
     }
     node->next = NULL;
     return node;
+}
+
+void sll_node_destroy(SLL_Node *node){
+    if(node == NULL)return;
+    if(node->data != NULL)free(node->data);
+    free(node);
 }
