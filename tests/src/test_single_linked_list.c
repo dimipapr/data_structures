@@ -173,6 +173,53 @@ MU_TEST(test_sll_find_by_index__find_head_exists){
 	mu_assert_int_eq(data, *(int*)head->data);
 	sll_destroy(list);
 }
+MU_TEST(test_sll_find_by_index__find_tail_three_nodes){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	int data0=10, data1=20, data2=30;
+	list->head = sll_node_create(list, &data0);
+	mu_check(list->head);
+	list->head->next = sll_node_create(list, &data1);
+	mu_check(list->head->next);
+	list->head->next->next = sll_node_create(list, &data2);
+	mu_check(list->head->next->next);
+	SLL_Node *node=sll_find_by_index(list,-1);
+	mu_assert(node == list->head->next->next, "Did not get tail node");
+	mu_assert(node->data == list->head->next->next->data, "Unexpected data pointer in returned tail node");
+	sll_destroy(list);
+}
+MU_TEST(test_sll_find_by_index__find_third_node_exists){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	int data0=10, data1=20, data2=30;
+	list->head = sll_node_create(list, &data0);
+	mu_check(list->head);
+	list->head->next = sll_node_create(list, &data1);
+	mu_check(list->head->next);
+	list->head->next->next = sll_node_create(list, &data2);
+	mu_check(list->head->next->next);
+	SLL_Node *node=sll_find_by_index(list,2);
+	mu_assert(node == list->head->next->next, "Did not get correct node");
+	mu_assert(node->data == list->head->next->next->data, "Unexpected data pointer in returned node");
+	sll_destroy(list);
+}
+MU_TEST(test_sll_find_by_index__find_empty_index_in_non_empty_list){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	int data0=10, data1=20, data2=30;
+	list->head = sll_node_create(list, &data0);
+	mu_check(list->head);
+	list->head->next = sll_node_create(list, &data1);
+	mu_check(list->head->next);
+	list->head->next->next = sll_node_create(list, &data2);
+	mu_check(list->head->next->next);
+	SLL_Node *node=sll_find_by_index(list,3);
+	mu_assert(node == NULL, "Should return NULL when index is bigger than list size");
+	sll_destroy(list);
+}
 
 //sll_append
 // MU_TEST(test_sll_append__bad_input){
@@ -230,6 +277,9 @@ MU_TEST_SUITE(test_sll_get_tail){
 MU_TEST_SUITE(test_sll_find_by_index){
 	MU_RUN_TEST(test_sll_find_by_index__bad_input);
 	MU_RUN_TEST(test_sll_find_by_index__find_head_exists);
+	MU_RUN_TEST(test_sll_find_by_index__find_tail_three_nodes);
+	MU_RUN_TEST(test_sll_find_by_index__find_third_node_exists);
+	MU_RUN_TEST(test_sll_find_by_index__find_empty_index_in_non_empty_list);
 }
 // MU_TEST_SUITE(test_sll_append) {
 	// MU_RUN_TEST(test_sll_append__bad_input);
