@@ -145,6 +145,34 @@ MU_TEST(test_sll_get_tail__three_node_list){
 	mu_assert(*(int*)tail->data = data2, "IDK");
 	sll_destroy(list);
 }
+//sll_find_by_index
+MU_TEST(test_sll_find_by_index__bad_input){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	SLL_Node *node = sll_find_by_index(NULL,0);
+	mu_assert(node==NULL, "Should return NULL with NULL list");
+	node=sll_find_by_index(list,0);
+	mu_assert(node == NULL, "sll_find_by_index should return NULL with empty list");
+	int data = 10;
+	list->head = sll_node_create(list,&data);
+	mu_check(list->head);
+	node = sll_find_by_index(list,-10);
+	mu_assert(node == NULL, "Should return NULL with index not in [-1,inf]");
+	sll_destroy(list);
+}
+MU_TEST(test_sll_find_by_index__find_head_exists){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	int data=10;
+	list->head = sll_node_create(list,&data);
+	mu_check(list->head);
+	SLL_Node *head = sll_find_by_index(list, 0);
+	mu_assert(head != NULL, "sll_find_by_index should not return NULL here");
+	mu_assert_int_eq(data, *(int*)head->data);
+	sll_destroy(list);
+}
 
 //sll_append
 // MU_TEST(test_sll_append__bad_input){
@@ -175,35 +203,47 @@ MU_TEST(test_sll_get_tail__three_node_list){
 // 	mu_assert(list->head->next==NULL, "Bad node->next after insertion");
 // 	sll_destroy(list);
 // }
-MU_TEST_SUITE(test_suite) {
-	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
-	
-	//sll_create
+
+MU_TEST_SUITE(test_sll_create){
 	MU_RUN_TEST(test_sll_create__invalid_input);
 	MU_RUN_TEST(test_sll_create__initial_values);
-
-	//sll_node_create
+}
+MU_TEST_SUITE(test_sll_node_create){
 	MU_RUN_TEST(test_sll_node_create__bad_input);
 	MU_RUN_TEST(test_sll_node_create__initial_values);
-	//sll_node_destroy
+}
+MU_TEST_SUITE(test_sll_node_destroy){
 	MU_RUN_TEST(test_sll_node_destroy__bad_input);
 	MU_RUN_TEST(test_sll_node_destroy__null_data);
 	MU_RUN_TEST(test_sll_node_destroy__normal_op);
-	//sll_destroy
+}
+MU_TEST_SUITE(test_sll_destroy){
 	MU_RUN_TEST(test_sll_destroy__bad_input);
 	MU_RUN_TEST(test_sll_destroy__empty_list);
 	MU_RUN_TEST(test_sll_destroy__list_of_three_integers);
-	//sll_get_tail
+}
+MU_TEST_SUITE(test_sll_get_tail){
 	MU_RUN_TEST(test_sll_get_tail__bad_input);
 	MU_RUN_TEST(test_sll_get_tail__single_node_list);
 	MU_RUN_TEST(test_sll_get_tail__three_node_list);
-	//sll_append
+}
+MU_TEST_SUITE(test_sll_find_by_index){
+	MU_RUN_TEST(test_sll_find_by_index__bad_input);
+	MU_RUN_TEST(test_sll_find_by_index__find_head_exists);
+}
+// MU_TEST_SUITE(test_sll_append) {
 	// MU_RUN_TEST(test_sll_append__bad_input);
 	// MU_RUN_TEST(test_sll_append__empty_list_insert_at_head);
-}
+// }
 
 int main() {
-	MU_RUN_SUITE(test_suite);
+	MU_RUN_SUITE(test_sll_create);
+	MU_RUN_SUITE(test_sll_node_create);
+	MU_RUN_SUITE(test_sll_node_destroy);
+	MU_RUN_SUITE(test_sll_destroy);
+	MU_RUN_SUITE(test_sll_get_tail);
+	MU_RUN_SUITE(test_sll_find_by_index);
+
 	MU_REPORT();
 	return MU_EXIT_CODE;
 }
