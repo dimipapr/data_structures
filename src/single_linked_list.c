@@ -46,3 +46,29 @@ void sll_destroy(SingleLinkedList *list){
     sll_traverse(list, &sll_node_destroy);
     free(list);
 }
+
+// SLL_Node *sll_append(SingleLinkedList *list, void *data, int index){
+//     if(list == NULL || data == NULL)return NULL;
+
+// }
+
+SLL_Node *sll_get_tail(SingleLinkedList *list){
+    if(list == NULL || list->head == NULL) return NULL;
+    SLL_Node *node = list->head;
+    while(node->next != NULL) node = node->next;
+    return node;
+}
+
+SLL_Node *sll_find_by_index(SingleLinkedList *list, int index){
+    if (list == NULL || index < -1)return NULL;
+    if(index == -1){
+        return sll_get_tail(list);
+    }
+    SLL_Node *node = list->head;
+    int node_index = 0;
+    while( node!=NULL && node_index < index ){
+        node_index++;
+        node = node->next;
+    }
+    return node;
+}

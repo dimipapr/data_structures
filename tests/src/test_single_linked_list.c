@@ -104,7 +104,77 @@ MU_TEST(test_sll_destroy__list_of_three_integers){
 	sll_destroy(list);
 	mu_check(1);
 }
+//sll_get_tail
+MU_TEST(test_sll_get_tail__bad_input){
+	SingleLinkedList *list = NULL;
+	SLL_Node *node = sll_get_tail(list);
+	mu_assert(node == NULL, "sll_get_tail should return NULL with NULL list");
+	int data_size = sizeof(int);
+	list = sll_create(data_size);
+	mu_check(list);
+	node = sll_get_tail(list);
+	mu_assert(node == NULL, "sll_get_tail should return NULL with empty list");
+	sll_destroy(list);
+}
+MU_TEST(test_sll_get_tail__single_node_list){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	int data = 10;
+	list->head = sll_node_create(list, &data);
+	SLL_Node *tail = sll_get_tail(list);
+	mu_assert(tail!=NULL, "Should not be NULL");
+	mu_assert(*(int*)tail->data = data, "IDK");
+	sll_destroy(list);
+}
+MU_TEST(test_sll_get_tail__three_node_list){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_check(list);
+	int data0 = 10;
+	int data1 = 20;
+	int data2 = 30;
+	list->head = sll_node_create(list, &data0);
+	mu_check(list->head);
+	list->head->next = sll_node_create(list, &data1);
+	mu_check(list->head->next);
+	list->head->next->next = sll_node_create(list, &data2);
+	mu_check(list->head->next->next);
+	SLL_Node *tail = sll_get_tail(list);
+	mu_assert(tail!=NULL, "Should not be NULL");
+	mu_assert(*(int*)tail->data = data2, "IDK");
+	sll_destroy(list);
+}
 
+//sll_append
+// MU_TEST(test_sll_append__bad_input){
+// 	int data_size = sizeof(int);
+// 	SingleLinkedList *list = sll_create(data_size);
+// 	SingleLinkedList *null_list = NULL;
+// 	int data = 10;
+// 	int *null_data = NULL;
+// 	mu_check(list);
+// 	SLL_Node *inserted_node = sll_append(null_list,&data,0);
+// 	mu_assert(inserted_node == NULL, "sll_append() should return NULL with NULL list input");
+// 	inserted_node = sll_append(list,null_data,0);
+// 	mu_assert(inserted_node == NULL, "sll_append() should return NULL with NULL data input");
+// 	inserted_node = sll_append(null_list, null_data,0);
+// 	mu_assert(inserted_node == NULL, "sll_append() should return NULL with NULL list and data input");
+// 	sll_destroy(list);
+// }
+// MU_TEST(test_sll_append__empty_list_insert_at_head){
+// 	int data_size = sizeof(int);
+// 	SingleLinkedList *list = sll_create(data_size);
+// 	mu_check(list);
+// 	int data = 10;
+// 	SLL_Node *inserted_node = sll_append(list, &data, 0);
+// 	mu_check(inserted_node);
+// 	mu_assert(list->head == inserted_node, "Bad insertion");
+// 	mu_assert(list->head->data == &data, "Bad data pointer after insertion");
+// 	mu_assert(*(int*)list->head->data == data, "Bad data value after insertion");
+// 	mu_assert(list->head->next==NULL, "Bad node->next after insertion");
+// 	sll_destroy(list);
+// }
 MU_TEST_SUITE(test_suite) {
 	//MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 	
@@ -123,6 +193,13 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_sll_destroy__bad_input);
 	MU_RUN_TEST(test_sll_destroy__empty_list);
 	MU_RUN_TEST(test_sll_destroy__list_of_three_integers);
+	//sll_get_tail
+	MU_RUN_TEST(test_sll_get_tail__bad_input);
+	MU_RUN_TEST(test_sll_get_tail__single_node_list);
+	MU_RUN_TEST(test_sll_get_tail__three_node_list);
+	//sll_append
+	// MU_RUN_TEST(test_sll_append__bad_input);
+	// MU_RUN_TEST(test_sll_append__empty_list_insert_at_head);
 }
 
 int main() {
