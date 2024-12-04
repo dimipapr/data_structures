@@ -1,7 +1,7 @@
 single linked list:
-    ->creation
-    ->traversal
-    ->insertion
+    ->creation [x]
+    ->traversal [x]
+    ->insertion [x]
     ->deletion
     ->search
     ->sort

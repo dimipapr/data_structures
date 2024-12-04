@@ -48,4 +48,12 @@ SLL_Node *sll_node_create(SingleLinkedList *list, void *data);
  */
 void sll_traverse(SingleLinkedList *list,void (*node_action)(SLL_Node *node));
 
+/**
+ * Insert a new node in an existing single linked list at position designated by index.
+ * @param list
+ * @param data
+ * @param index Index to insert new node. -1 for tail
+ * @returns A pointer to the newly inserted node. NULL on failure
+ */
+SLL_Node* sll_insert(SingleLinkedList *list, void *data, int index);
 #endif

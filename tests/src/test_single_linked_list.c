@@ -97,10 +97,93 @@ MU_TEST(test_sll_traverse__print_dogs){
 MU_TEST_SUITE(suite_sll_traverse){
 	MU_RUN_TEST(test_sll_traverse__print_dogs);
 }
+//sll_insert
+MU_TEST(test_sll_insert__bad_input){
+	int data_size = 5*sizeof(int);
+	int data[5] = {1,2,3,4,5};
+	SingleLinkedList *list = sll_create(data_size);
+	mu_assert(list, "Unexpected malloc failure");
+	SLL_Node *node;
+	node = sll_insert(NULL,data,0);
+	mu_assert(node == NULL, "sll_insert should return NULL on NULL list input");
+	node = sll_insert(list,NULL,0);
+	mu_assert(node == NULL, "sll_insert should return NULL on NULL data input");
+	node = sll_insert(NULL,NULL,0);
+	mu_assert(node == NULL, "sll_insert should return NULL on NULL list and data input");
+	node = sll_insert(list,data,-2);
+	mu_assert(node == NULL, "sll_insert should return NULL with index<-1");
+	node = sll_insert(list,data,SLL_NODES_MAX+1);
+	mu_assert(node == NULL, "sll_insert should return NULL with index>SLL_NODES_MAX");
+	free(list);
+}
+MU_TEST(test_sll_insert__head_on_empty_list){
+	int data_size = 3*sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_assert(list,"Unexpected malloc failure");
+	int data1[3]={0,0,1};
+	SLL_Node *node = sll_insert(list,data1,0);
+	mu_assert(node,"Unexpected NULL return from sll_insert");
+	mu_assert(node == list->head, "Bad pointer on list->head after insertion");
+	mu_assert( memcmp(node->data,data1,list->data_size) == 0, "Bad node data after insertion");
+	mu_assert(node->next == NULL, "node->next should be NULL");
+	free(node->data);
+	free(node);
+	free(list);
+}
+MU_TEST(test_sll_insert__tail_on_empty_list){
+	int data_size = 3*sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_assert(list,"Unexpected malloc failure");
+	int data1[3]={0,0,1};
+	SLL_Node *node = sll_insert(list,data1,-1);
+	mu_assert(node,"Unexpected NULL return from sll_insert");
+	mu_assert(node == list->head, "Bad pointer on list->head after insertion");
+	mu_assert(memcmp(node->data,data1,list->data_size)==0, "Bad node data after insertion");
+	mu_assert(node->next == NULL, "node->next should be NULL");
+	free(node->data);
+	free(node);
+	free(list);
+}
+MU_TEST(test_sll_insert__head_three_on_empty){
+	int data_size = 3*sizeof(int);
+	SingleLinkedList *list = sll_create(data_size);
+	mu_assert(list,"Unexpected malloc failure");
+	int data1[3]={0,0,1};
+	int data2[3]={0,1,0};
+	int data3[3]={1,0,0};
+	SLL_Node *node = sll_insert(list,data1,0);
+	mu_assert(node,"Unexpected NULL return from sll_insert");
+	mu_assert(node == list->head, "Bad pointer on list->head after insertion");
+	mu_assert(memcmp(node->data, data1, list->data_size) == 0,"Bad data");
+	node = sll_insert(list,data2,0);
+	mu_assert(node,"Unexpected NULL return from sll_insert");
+	mu_assert(list->head == node, "Bad insertion");
+	mu_assert(memcmp(node->data, data2, list->data_size) == 0,"Bad data");
+	node = sll_insert(list,data3,0);
+	mu_assert(node,"Unexpected NULL return from sll_insert");
+	mu_assert(list->head == node, "Bad insertion");
+	mu_assert(memcmp(node->data, data3, list->data_size) == 0,"Bad data");
+	free(list->head->next->next->data);
+	free(list->head->next->next);
+	free(list->head->next->data);
+	free(list->head->next);
+	free(list->head->data);
+	free(list->head);
+	free(list);
+}
+//TODO add some more insertion tests
+
+MU_TEST_SUITE(suite_sll_insert){
+	MU_RUN_TEST(test_sll_insert__bad_input);
+	MU_RUN_TEST(test_sll_insert__head_on_empty_list);
+	MU_RUN_TEST(test_sll_insert__tail_on_empty_list);
+	MU_RUN_TEST(test_sll_insert__head_three_on_empty);
+}
 
 int main(){
 	MU_RUN_SUITE(suite_sll_create);
 	MU_RUN_SUITE(suite_sll_node_create);
 	MU_RUN_SUITE(suite_sll_traverse);
+	MU_RUN_SUITE(suite_sll_insert);
 	MU_REPORT();
 }

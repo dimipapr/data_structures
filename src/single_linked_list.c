@@ -37,3 +37,27 @@ void sll_traverse(SingleLinkedList *list, void (*node_action)(SLL_Node *node)){
         node = next;
     }
 }
+
+SLL_Node* sll_insert(SingleLinkedList *list, void *data, int index){
+    if( list==NULL || data==NULL || index<-1 || index>SLL_NODES_MAX)return NULL;
+    SLL_Node *node = sll_node_create(list, data);
+    if(index == -1){//insert at tail
+        if(list->head == NULL){
+            list->head = node;
+            return node;
+        }else{
+            SLL_Node *tail = list->head;
+            while(tail->next)tail=tail->next;
+            tail->next=node;
+            return node;
+        }
+    }else if(index == 0){//insert at head
+        if(node == NULL)return NULL;//malloc fail
+        node->next = list->head;
+        list->head = node;
+        return node;
+    }else{
+        free(node);
+        return NULL;
+    }
+}
