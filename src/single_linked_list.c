@@ -17,7 +17,7 @@ SingleLinkedList *sll_create(int data_size){
 SLL_Node *sll_node_create(SingleLinkedList *list, void *data){
     if( list==NULL || data==NULL )return NULL;
     SLL_Node *node = malloc(sizeof(SLL_Node));
-    if(node == NULL)return NULL;
+    if(node == NULL)goto err_node;
     node->data = malloc(list->data_size);
     if(node->data == NULL)goto err_data;
     memcpy(node->data,data,list->data_size);
@@ -26,4 +26,14 @@ SLL_Node *sll_node_create(SingleLinkedList *list, void *data){
 //malloc failure handling
 err_data:free(node);
 err_node:return NULL;
+}
+
+void sll_traverse(SingleLinkedList *list, void (*node_action)(SLL_Node *node)){
+    if( list==NULL || list->head==NULL )return;
+    SLL_Node *node = list->head;
+    while(node){
+        SLL_Node *next = node->next;
+        node_action(node);
+        node = next;
+    }
 }

@@ -41,5 +41,11 @@ SingleLinkedList *sll_create(int data_size);
  */
 SLL_Node *sll_node_create(SingleLinkedList *list, void *data);
 
+/**
+ * Go through the list and perform an action on each node
+ * @param list
+ * @param node_action A function pointer to a function manipulating each node
+ */
+void sll_traverse(SingleLinkedList *list,void (*node_action)(SLL_Node *node));
 
 #endif

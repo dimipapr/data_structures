@@ -66,9 +66,41 @@ MU_TEST_SUITE(suite_sll_node_create){
 	MU_RUN_TEST(test_sll_node_create__bad_input);
 	MU_RUN_TEST(test_sll_node_create__initial_values);
 }
+//sll_traverse
+struct dog{
+	char name[20];
+	int age;
+};
+void grow_up_dog(SLL_Node *node){
+	if(node == NULL || node->data == NULL)return;
+	struct dog* this_dog = (struct dog*)(node->data);
+	this_dog->age ++;
+}
+MU_TEST(test_sll_traverse__print_dogs){
+	struct dog d1 = {.name="Skyloos",.age=5};
+	struct dog d2 = {.name="Skylooooooos",.age=13};
+	d1.name[0]='o';
+	SingleLinkedList *list = sll_create(sizeof(struct dog));
+	list->head = sll_node_create(list,&d1);
+	list->head->next = sll_node_create(list,&d2);
+	sll_traverse(list, &grow_up_dog);
+	mu_assert( ((struct dog *)list->head->data)->age == d1.age+1, "Dog age did not bulge");
+	mu_assert( ((struct dog *)list->head->next->data)->age == d2.age+1, "Dog age did not bulge");
+
+	free(list->head->next->data);
+	free(list->head->next);
+	free(list->head->data);
+	free(list->head);
+	free(list);
+	mu_check(1);
+}
+MU_TEST_SUITE(suite_sll_traverse){
+	MU_RUN_TEST(test_sll_traverse__print_dogs);
+}
 
 int main(){
 	MU_RUN_SUITE(suite_sll_create);
 	MU_RUN_SUITE(suite_sll_node_create);
+	MU_RUN_SUITE(suite_sll_traverse);
 	MU_REPORT();
 }
