@@ -24,7 +24,21 @@ typedef struct  SingleLinkedList
     SLL_Node *head; /**Pointer to the first node */
 }SingleLinkedList;
 
+/**
+ * Creates a new Single Linked List and returns a pointer to it.
+ * Returns NULL if it fails
+ * @param data_size Size in bytes of node data
+ * @returns A pointer to the new list. NULL if it fails.
+ */
 SingleLinkedList *sll_create(int data_size);
+
+/**
+ * Creates a new Single Linked List Node and returns a pointer to it.
+ * Returns NULL on failure.
+ * @param list The list the new node belongs to
+ * @param data Pointer to the data to be copied in the node
+ * @returns A pointer to the new node. NULL on failure
+ */
 SLL_Node *sll_node_create(SingleLinkedList *list, void *data);
 
 
