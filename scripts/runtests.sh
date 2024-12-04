@@ -9,7 +9,7 @@ TESTS_DIR=$1
 TESTS=$(ls $TESTS_DIR/test_*)
 
 if [ "$2" == "memcheck" ];then
-    VALGRIND="valgrind -s --leak-check=full"
+    VALGRIND="valgrind -s --leak-check=full --track-origins=yes"
 fi
 
 for test in $TESTS
