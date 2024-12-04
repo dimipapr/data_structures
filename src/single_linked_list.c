@@ -37,14 +37,6 @@ void sll_traverse(SingleLinkedList *list, void (*node_action)(SLL_Node *node)){
         node = next;
     }
 }
-
-void sll_node_destroy(SLL_Node *node){
-    if(node){
-        if(node->data)free(node->data);
-        free(node);
-    }
-}
-
 void sll_destroy(SingleLinkedList *list){
     if(list){
         if(list->head){
