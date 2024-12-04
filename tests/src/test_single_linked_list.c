@@ -163,13 +163,14 @@ MU_TEST(test_sll_insert__head_three_on_empty){
 	mu_assert(node,"Unexpected NULL return from sll_insert");
 	mu_assert(list->head == node, "Bad insertion");
 	mu_assert(memcmp(node->data, data3, list->data_size) == 0,"Bad data");
-	free(list->head->next->next->data);
-	free(list->head->next->next);
-	free(list->head->next->data);
-	free(list->head->next);
-	free(list->head->data);
-	free(list->head);
-	free(list);
+	// free(list->head->next->next->data);
+	// free(list->head->next->next);
+	// free(list->head->next->data);
+	// free(list->head->next);
+	// free(list->head->data);
+	// free(list->head);
+	// free(list);
+	sll_destroy(list);
 }
 //TODO add some more insertion tests
 

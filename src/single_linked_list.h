@@ -49,6 +49,18 @@ SLL_Node *sll_node_create(SingleLinkedList *list, void *data);
 void sll_traverse(SingleLinkedList *list,void (*node_action)(SLL_Node *node));
 
 /**
+ * Destroy a single linked list node and free all associated memory.
+ */
+void sll_node_destroy(SLL_Node *node);
+
+/**
+ * Destroy single linked list and free all associated memory
+ * @param list
+ * @returns Nothing
+ */
+void sll_destroy(SingleLinkedList *list);
+
+/**
  * Insert a new node in an existing single linked list at position designated by index.
  * @param list
  * @param data

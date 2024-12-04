@@ -38,6 +38,28 @@ void sll_traverse(SingleLinkedList *list, void (*node_action)(SLL_Node *node)){
     }
 }
 
+void sll_node_destroy(SLL_Node *node){
+    if(node){
+        if(node->data)free(node->data);
+        free(node);
+    }
+}
+
+void sll_destroy(SingleLinkedList *list){
+    if(list){
+        if(list->head){
+            SLL_Node *node = list->head;
+            while(node){
+                if(node->data)free(node->data);
+                SLL_Node *next = node->next;
+                free(node);
+                node=next;
+            }
+        }
+        free(list);
+    }
+}
+
 SLL_Node* sll_insert(SingleLinkedList *list, void *data, int index){
     if( list==NULL || data==NULL || index<-1 || index>SLL_NODES_MAX)return NULL;
     SLL_Node *node = sll_node_create(list, data);
