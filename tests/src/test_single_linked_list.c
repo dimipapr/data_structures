@@ -57,9 +57,6 @@ MU_TEST(test_sll_node_create__initial_values){
 	SLL_Node *node = sll_node_create(list,data);
 	mu_assert(node, "Unexpected NULL return value from sll_node_create()");
 	mu_assert(node->next == NULL, "node->next initial value should be NULL");
-	for (int i=0;i<10;i++){
-		printf("data:%c,node_data:%c\n",*((char*)data+i),*((char*)node->data+i));
-	}
 	mu_assert(memcmp(data,node->data,list->data_size) == 0, "node->data is not equal to given data after sll_node_create()");
 	free(node->data);
 	free(node);
