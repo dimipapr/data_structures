@@ -54,6 +54,13 @@ void sll_traverse(SingleLinkedList *list,void (*node_action)(SLL_Node *node));
 // void sll_node_destroy(SLL_Node *node);
 
 /**
+ * Destroy the given node and free all associated memory.
+ * Does not handle links.
+ * @param node
+ * @return Nothing
+ */
+void sll_node_destroy(SLL_Node *node);
+/**
  * Destroy single linked list and free all associated memory
  * @param list
  * @returns Nothing
