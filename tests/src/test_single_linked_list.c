@@ -35,7 +35,7 @@ MU_TEST(test_sllNodeCreate_badInput){
 	mu_assert(node==NULL,"sllNodeCreate should return NULL with NULL pData input");
 	node = sllNodeCreate(NULL,NULL);
 	mu_assert(node==NULL,"sllNodeCreate should return NULL with NULL plist and pData input");
-	free(list);
+	sllDestroy(list);
 }
 MU_TEST(test_sllNodeCreate_initialValues){
 	int data_size = sizeof(int);
@@ -46,9 +46,8 @@ MU_TEST(test_sllNodeCreate_initialValues){
 	mu_assert(node,"Unexpected NULL returned from sllNodeCreate");
 	mu_assert(*(int*)(node->pData)==data, "Bad data copy after sllNodeCreate");
 	mu_assert(node->pNext == NULL, "node->pNext initial value should be NULL");
-	free(node->pData);
-	free(node);
-	free(list);
+	sllNodeDestroy(node);
+	sllDestroy(list);
 }
 MU_TEST_SUITE(suite_sllNodeCreate){
 	MU_RUN_TEST(test_sllNodeCreate_badInput);
@@ -65,9 +64,8 @@ MU_TEST(test_sllInsertAtHead_badInput){
 	mu_assert(sllInsertAtHead(NULL,node) == NULL, "sllInsertAtHead should return NULL with NULL list input");
 	mu_assert(sllInsertAtHead(list,NULL) == NULL, "sllInsertAtHead should return NULL with NULL node input");
 	mu_assert(sllInsertAtHead(NULL,NULL) == NULL, "sllInsertAtHead should return NULL with NULL list and node input");
-	free(list);
-	free(node->pData);
-	free(node);
+	sllNodeDestroy(node);
+	sllDestroy(list);
 }
 MU_TEST(test_sllInsertAtHead_insertFiftyNodes){
 	SingleLinkedList *list = sllCreate(sizeof(int));
@@ -83,12 +81,10 @@ MU_TEST(test_sllInsertAtHead_insertFiftyNodes){
 	while(list->pHead){
 		SLLNode *tmp = list->pHead;
 		list->pHead = list->pHead->pNext;
-		free(tmp->pData);
-		free(tmp);
+		sllNodeDestroy(tmp);
 	}
 	mu_assert(sllLength(list)==0, "List should be empty now");
-	free(list);
-
+	sllDestroy(list);
 }
 MU_TEST_SUITE(suite_sllInsertAtHead){
 	MU_RUN_TEST(test_sllInsertAtHead_badInput);
