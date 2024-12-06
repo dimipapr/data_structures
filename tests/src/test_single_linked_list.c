@@ -59,12 +59,9 @@ MU_TEST(test_sllInsertAtHead_badInput){
 	SingleLinkedList *list = sllCreate(dataSize);
 	mu_check(list);
 	int data=10;
-	SLLNode *node = sllNodeCreate(list, &data);
-	mu_check(node);
-	mu_assert(sllInsertAtHead(NULL,node) == NULL, "sllInsertAtHead should return NULL with NULL list input");
-	mu_assert(sllInsertAtHead(list,NULL) == NULL, "sllInsertAtHead should return NULL with NULL node input");
-	mu_assert(sllInsertAtHead(NULL,NULL) == NULL, "sllInsertAtHead should return NULL with NULL list and node input");
-	sllNodeDestroy(node);
+	mu_assert(sllInsertAtHead(NULL,&data) == NULL, "sllInsertAtHead should return NULL with NULL list input");
+	mu_assert(sllInsertAtHead(list,NULL) == NULL, "sllInsertAtHead should return NULL with NULL data input");
+	mu_assert(sllInsertAtHead(NULL,NULL) == NULL, "sllInsertAtHead should return NULL with NULL list and data input");
 	sllDestroy(list);
 }
 MU_TEST(test_sllInsertAtHead_insertFiftyNodes){
@@ -72,10 +69,7 @@ MU_TEST(test_sllInsertAtHead_insertFiftyNodes){
 	mu_check(list);
 	int data=10;
 	for(int i=0;i<50;i++){
-		SLLNode* node = sllNodeCreate(list, &data);
-		mu_check(node);
-		node->pNext = list->pHead;
-		list->pHead = node;
+		sllInsertAtHead(list,&data);		
 	}
 	mu_assert(sllLength(list) == 50, "Bad list count");
 	while(list->pHead){

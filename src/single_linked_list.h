@@ -28,7 +28,7 @@ typedef struct  SingleLinkedList
 
 SLLNode*            sllNodeCreate(SingleLinkedList* pList, void* pData);
 SingleLinkedList*   sllCreate(int data_size);
-SLLNode*            sllInsertAtHead(SingleLinkedList* pList, SLLNode* pNode);
+SLLNode*            sllInsertAtHead(SingleLinkedList* pList, void* pData);
 int                 sllLength(SingleLinkedList* pList);
 void                sllTraverse(SingleLinkedList* pList, void(*sll_node_action)(SLLNode* pNode));
 void                sllDestroy(SingleLinkedList* pList);
