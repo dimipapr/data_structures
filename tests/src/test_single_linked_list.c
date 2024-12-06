@@ -66,8 +66,22 @@ MU_TEST(test_sllInsertAt_badInput){
 	sllNodeDestroy(pNode);
 	sllDestroy(pList);
 }
+MU_TEST(test_sllInsertAt_fill){
+	SingleLinkedList* pList = sllCreate(sizeof(int));
+	mu_check(pList);
+	const int dataLength=SLL_NODES_MAX + 10;
+	int data[dataLength];
+	for(int i=0;i<dataLength;i++){
+		data[i] = i;
+		SLLNode* pNode = sllNodeCreate(pList, data+i);
+		if(!sllInsertAt(pList,pNode,SLL_INDEX_HEAD))sllNodeDestroy(pNode);
+	}
+	mu_assert(sllLength(pList)==SLL_NODES_MAX, "bad list length after sllInsertAt");
+	sllDestroy(pList);
+}
 MU_TEST_SUITE(suite_sllInsertAt){
 	MU_RUN_TEST(test_sllInsertAt_badInput);
+	MU_RUN_TEST(test_sllInsertAt_fill);
 }
 
 int main(){

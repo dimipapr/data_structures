@@ -64,6 +64,7 @@ void sllDestroy(SingleLinkedList* pList){
 }
 SLLNode* sllInsertAfter(SingleLinkedList* pList, SLLNode* pNode, SLLNode* pNewNode){
     if(pList==NULL || pNode == NULL || pNewNode==NULL)return NULL;
+    if(sllLength(pList)>=SLL_NODES_MAX)return NULL;
     pNewNode->pNext = pNode->pNext;
     pNode->pNext = pNewNode;
     return pNewNode;
@@ -71,6 +72,7 @@ SLLNode* sllInsertAfter(SingleLinkedList* pList, SLLNode* pNode, SLLNode* pNewNo
 
 SLLNode *sllInsertAt(SingleLinkedList* pList, SLLNode* pNewNode, int index){
     if( pList==NULL || pNewNode==NULL || index<-1 || index>SLL_NODES_MAX )return NULL;
+    if(sllLength(pList)>=SLL_NODES_MAX)return NULL;
     switch(index){
         case SLL_INDEX_HEAD:
             pNewNode->pNext=pList->pHead;
