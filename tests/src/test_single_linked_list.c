@@ -53,40 +53,9 @@ MU_TEST_SUITE(suite_sllNodeCreate){
 	MU_RUN_TEST(test_sllNodeCreate_badInput);
 	MU_RUN_TEST(test_sllNodeCreate_initialValues);
 }
-//sllInsertAtHead
-MU_TEST(test_sllInsertAtHead_badInput){
-	int dataSize = sizeof(int);
-	SingleLinkedList *pList = sllCreate(dataSize);
-	mu_check(pList);
-	int data=10;
-	mu_assert(sllInsertAtHead(NULL,&data) == NULL, "sllInsertAtHead should return NULL with NULL list input");
-	mu_assert(sllInsertAtHead(pList,NULL) == NULL, "sllInsertAtHead should return NULL with NULL data input");
-	mu_assert(sllInsertAtHead(NULL,NULL) == NULL, "sllInsertAtHead should return NULL with NULL list and data input");
-	sllDestroy(pList);
-}
-MU_TEST(test_sllInsertAtHead_insertFiftyNodes){
-	SingleLinkedList *pList = sllCreate(sizeof(int));
-	mu_check(pList);
-	int data=10;
-	for(int i=0;i<50;i++){
-		sllInsertAtHead(pList,&data);		
-	}
-	mu_assert(sllLength(pList) == 50, "Bad list count");
-	while(pList->pHead){
-		SLLNode *tmp = pList->pHead;
-		pList->pHead = pList->pHead->pNext;
-		sllNodeDestroy(tmp);
-	}
-	mu_assert(sllLength(pList)==0, "List should be empty now");
-	sllDestroy(pList);
-}
-MU_TEST_SUITE(suite_sllInsertAtHead){
-	MU_RUN_TEST(test_sllInsertAtHead_badInput);
-	MU_RUN_TEST(test_sllInsertAtHead_insertFiftyNodes);
-}
+
 int main(){
 	MU_RUN_SUITE(suite_sllCreate);
 	MU_RUN_SUITE(suite_sllNodeCreate);
-	MU_RUN_SUITE(suite_sllInsertAtHead);
 	MU_REPORT();
 }
