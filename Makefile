@@ -42,6 +42,9 @@ tests/bin/test_%:tests/build/test_%.o $(LIB_TARGET_DEBUG)
 run:$(TESTS_BINARIES)
 	./scripts/runtests.sh ./tests/bin
 
+debug_%:tests/bin/test_%
+	gdb $<
+
 memcheck: $(TESTS_BINARIES)
 	./scripts/runtests.sh ./tests/bin memcheck
 
