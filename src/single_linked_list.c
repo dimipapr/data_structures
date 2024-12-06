@@ -24,5 +24,6 @@ SLLNode *sllNodeCreate(SingleLinkedList* pList, void* pData){
         return NULL;
     }
     memcpy(node->pData, pData, pList->dataSize);
+    node->pNext = NULL;
     return node;
 }
