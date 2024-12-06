@@ -22,8 +22,41 @@ MU_TEST_SUITE(suite_sllCreate){
 	MU_RUN_TEST(test_sllCreate_badInput);
 	MU_RUN_TEST(test_sllCreate_initialValues);
 }
+//sllNodeCreate
+MU_TEST(test_sllNodeCreate_badInput){
+	// sllNodeCreate(pList,pData)
+	int dataSize = sizeof(int);
+	SingleLinkedList *list = sllCreate(dataSize);
+	mu_check(list);
+	int data=10;
+	SLLNode *node = sllNodeCreate(NULL,&data);
+	mu_assert(node==NULL,"sllNodeCreate should return NULL with NULL pList input");
+	node = sllNodeCreate(list,NULL);
+	mu_assert(node==NULL,"sllNodeCreate should return NULL with NULL pData input");
+	node = sllNodeCreate(NULL,NULL);
+	mu_assert(node==NULL,"sllNodeCreate should return NULL with NULL plist and pData input");
+	free(list);
+}
+MU_TEST(test_sllNodeCreate_initialValues){
+	int data_size = sizeof(int);
+	SingleLinkedList *list = sllCreate(data_size);
+	mu_check(list);
+	int data=10;
+	SLLNode *node = sllNodeCreate(list, &data);
+	mu_assert(node,"Unexpected NULL returned from sllNodeCreate");
+	mu_assert(*(int*)(node->pData)==data, "Bad data copy after sllNodeCreate");
+	mu_assert(node->pNext == NULL, "node->pNext initial value should be NULL");
+	free(node->pData);
+	free(node);
+	free(list);
+}
+MU_TEST_SUITE(suite_sllNodeCreate){
+	MU_RUN_TEST(test_sllNodeCreate_badInput);
+	MU_RUN_TEST(test_sllNodeCreate_initialValues);
+}
 
 int main(){
 	MU_RUN_SUITE(suite_sllCreate);
+	MU_RUN_SUITE(suite_sllNodeCreate);
 	MU_REPORT();
 }

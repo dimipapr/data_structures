@@ -11,3 +11,18 @@ SingleLinkedList* sllCreate(int data_size){
     }
     return list;
 }
+
+SLLNode *sllNodeCreate(SingleLinkedList* pList, void* pData){
+    if( pList==NULL || pData==NULL)return NULL;
+    SLLNode* node = malloc(sizeof(SLLNode));
+    if(node==NULL){//malloc failure
+        return NULL;
+    }
+    node->pData = malloc(pList->dataSize);
+    if(node->pData==NULL){//malloc failure
+        free(node);
+        return NULL;
+    }
+    memcpy(node->pData, pData, pList->dataSize);
+    return node;
+}
