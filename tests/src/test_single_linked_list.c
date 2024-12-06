@@ -17,6 +17,7 @@ MU_TEST(test_sllCreate_initialValues){
 	mu_assert(list, "Unexpected NULL from sllCreate");
 	mu_assert(list->pHead == NULL, "list->pHead should initialize to NULL");
 	mu_assert(list->dataSize == dataSize, "list->dataSize bad initialization");
+	free(list);
 }
 MU_TEST_SUITE(suite_sllCreate){
 	MU_RUN_TEST(test_sllCreate_badInput);
