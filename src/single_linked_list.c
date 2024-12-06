@@ -4,46 +4,46 @@
 
 SingleLinkedList* sllCreate(int data_size){
     if ( data_size<=0 || data_size>SLL_NODE_DATA_BYTES_MAX )return NULL;
-    SingleLinkedList *list = malloc(sizeof(SingleLinkedList));
-    if(list){
-        list->pHead = NULL;
-        list->dataSize = data_size;
+    SingleLinkedList *pList = malloc(sizeof(SingleLinkedList));
+    if(pList){
+        pList->pHead = NULL;
+        pList->dataSize = data_size;
     }
-    return list;
+    return pList;
 }
 
 SLLNode *sllNodeCreate(SingleLinkedList* pList, void* pData){
     if( pList==NULL || pData==NULL)return NULL;
-    SLLNode* node = malloc(sizeof(SLLNode));
-    if(node==NULL){//malloc failure
+    SLLNode* pNode = malloc(sizeof(SLLNode));
+    if(pNode==NULL){//malloc failure
         return NULL;
     }
-    node->pData = malloc(pList->dataSize);
-    if(node->pData==NULL){//malloc failure
-        free(node);
+    pNode->pData = malloc(pList->dataSize);
+    if(pNode->pData==NULL){//malloc failure
+        free(pNode);
         return NULL;
     }
-    memcpy(node->pData, pData, pList->dataSize);
-    node->pNext = NULL;
-    return node;
+    memcpy(pNode->pData, pData, pList->dataSize);
+    pNode->pNext = NULL;
+    return pNode;
 }
 
 SLLNode* sllInsertAtHead(SingleLinkedList *pList, void* pData){
     if(pList==NULL || pData==NULL)return NULL;
-    SLLNode* node = sllNodeCreate(pList,pData);
-    if(node == NULL)return NULL;
-    node->pNext = pList->pHead;
-    pList->pHead = node;
-    return node;
+    SLLNode* pNode = sllNodeCreate(pList,pData);
+    if(pNode == NULL)return NULL;
+    pNode->pNext = pList->pHead;
+    pList->pHead = pNode;
+    return pNode;
 }
 
 int sllLength(SingleLinkedList *pList){
     if(pList == NULL)return SLL_NULL_LIST;
-    SLLNode *node = pList->pHead;
+    SLLNode *pNode = pList->pHead;
     int count=0;
-    while(node){
+    while(pNode){
         count++;
-        node=node->pNext;
+        pNode=pNode->pNext;
     }
     return count;
 }
