@@ -43,3 +43,27 @@ int sllLength(SingleLinkedList *pList){
     }
     return count;
 }
+
+void sllNodeDestroy(SLLNode *pNode){
+    if(pNode == NULL)return;
+    if(pNode->pData)free(pNode->pData);
+    free(pNode);
+}
+
+void sllTraverse(SingleLinkedList* pList, void(*sll_node_action)(SLLNode* pNode)){
+
+    
+    if(pList==NULL || pList->pHead == NULL)return;
+    SLLNode* pNode=pList->pHead;
+    while(pNode){
+        SLLNode* pNext=pNode->pNext;
+        sll_node_action(pNode);
+        pNode = pNext;
+    }
+}
+
+void sllDestroy(SingleLinkedList* pList){
+    if(pList == NULL)return;
+    sllTraverse(pList, &sllNodeDestroy);
+    free(pList);
+}
