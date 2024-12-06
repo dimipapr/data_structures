@@ -10,18 +10,26 @@
 /**
  * Struct representing a generic single linked list node
  */
-typedef struct SLL_Node{
-    struct SLL_Node *next;  /**Next node. NULL if empty */
-    void *data;             /**Node data */
-}SLL_Node;
+typedef struct SLLNode{
+    struct SLLNode *pNext;  /**Next node. NULL if empty */
+    void *pData;             /**Node data */
+}SLLNode;
 
 /**
  * Struct representing a generic single linked list.
  */
 typedef struct  SingleLinkedList
 {
-    int data_size; /**List node field data size. */
-    SLL_Node *head; /**Pointer to the first node */
+    int dataSize; /**List node field data size. */
+    SLLNode *pHead; /**Pointer to the first node */
 }SingleLinkedList;
+
+SLLNode *sllNodeCreate(SingleLinkedList* pList, void* pData);
+SingleLinkedList *sllCreate(int data_size);
+SLLNode *sllInsertAtHead(SingleLinkedList* pList, SLLNode* pNode);
+int sllLength(SingleLinkedList* pList);
+void sllDestroy(SingleLinkedList* pList);
+
+
 
 #endif
