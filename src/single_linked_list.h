@@ -26,12 +26,11 @@ typedef struct  SingleLinkedList
     SLLNode *pHead; /**Pointer to the first node */
 }SingleLinkedList;
 
-SLLNode *sllNodeCreate(SingleLinkedList* pList, void* pData);
-SingleLinkedList *sllCreate(int data_size);
-SLLNode *sllInsertAtHead(SingleLinkedList* pList, SLLNode* pNode);
-int sllLength(SingleLinkedList* pList);
-void sllDestroy(SingleLinkedList* pList);
-
-
+SLLNode*            sllNodeCreate(SingleLinkedList* pList, void* pData);
+SingleLinkedList*   sllCreate(int data_size);
+SLLNode*            sllInsertAtHead(SingleLinkedList* pList, SLLNode* pNode);
+int                 sllLength(SingleLinkedList* pList);
+void                sllTraverse(SingleLinkedList* pList);
+void                sllDestroy(SingleLinkedList* pList);
 
 #endif
