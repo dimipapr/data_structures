@@ -38,5 +38,5 @@ void                sllNodeDestroy(SLLNode* pNode);
 
 SLLNode*            sllInsertAfter(SingleLinkedList* pList, SLLNode* pNode, SLLNode* pNewNode);
 SLLNode*            sllInsertAt(SingleLinkedList* pList, SLLNode* pNode, int index);
-
+SLLNode*            sllGetNodeAt(SingleLinkedList* pList, int index);
 #endif

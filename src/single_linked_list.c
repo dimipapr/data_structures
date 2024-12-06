@@ -106,3 +106,26 @@ SLLNode *sllInsertAt(SingleLinkedList* pList, SLLNode* pNewNode, int index){
             return NULL;
     }
 }
+
+SLLNode* sllGetNodeAt(SingleLinkedList* pList, int index){
+    if(pList==NULL || index<-1 || pList->pHead==NULL || index>SLL_NODES_MAX || sllLength(pList)<index+1)return NULL;
+    switch(index){
+        case SLL_INDEX_HEAD:
+            return pList->pHead;
+            break;
+        case SLL_INDEX_TAIL:
+            SLLNode* pTail = pList->pHead;
+            while(pTail->pNext)pTail=pTail->pNext;
+            return pTail;
+            break;
+        default:
+            SLLNode* pNode=pList->pHead;
+            int count=0;
+            while(pNode->pNext && count<index){
+                pNode=pNode->pNext;
+                count++;
+            }
+            if(count==index)return pNode;
+            return NULL;
+    }
+}

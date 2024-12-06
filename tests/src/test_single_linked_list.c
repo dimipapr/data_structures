@@ -83,10 +83,21 @@ MU_TEST_SUITE(suite_sllInsertAt){
 	MU_RUN_TEST(test_sllInsertAt_badInput);
 	MU_RUN_TEST(test_sllInsertAt_fill);
 }
+//sllGetNodeAt
+MU_TEST(test_getNodeAt_badInput){
+	SingleLinkedList* pList = sllCreate(sizeof(int));
+	mu_check(pList);
+	sllDestroy(pList);
+}
+MU_TEST_SUITE(suite_getNodeAt){
+	// MU_SUITE_CONFIGURE(&suite_getNodeAt_setup,&suite_getNodeAt_teardown);
+	MU_RUN_TEST(test_getNodeAt_badInput);
+}
 
 int main(){
 	MU_RUN_SUITE(suite_sllCreate);
 	MU_RUN_SUITE(suite_sllNodeCreate);
 	MU_RUN_SUITE(suite_sllInsertAt);
+	MU_RUN_SUITE(suite_getNodeAt);
 	MU_REPORT();
 }
