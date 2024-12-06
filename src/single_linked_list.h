@@ -9,6 +9,9 @@
 
 #define SLL_NULL_LIST -1
 
+#define SLL_INDEX_HEAD 0
+#define SLL_INDEX_TAIL -1
+
 /**
  * Struct representing a generic single linked list node
  */
@@ -33,5 +36,8 @@ int                 sllLength(SingleLinkedList* pList);
 void                sllTraverse(SingleLinkedList* pList, void(*sll_node_action)(SLLNode* pNode));
 void                sllDestroy(SingleLinkedList* pList);
 void                sllNodeDestroy(SLLNode* pNode);
+
+SLLNode*            sllInsertAfter(SingleLinkedList* pList, SLLNode* pNode, SLLNode* pNewNode);
+SLLNode*            sllInsertAt(SingleLinkedList* pList, SLLNode* pNode, int index);
 
 #endif
