@@ -25,7 +25,6 @@ MU_TEST_SUITE(suite_sllCreate){
 }
 //sllNodeCreate
 MU_TEST(test_sllNodeCreate_badInput){
-	// sllNodeCreate(pList,pData)
 	int dataSize = sizeof(int);
 	SingleLinkedList *list = sllCreate(dataSize);
 	mu_check(list);
@@ -55,9 +54,24 @@ MU_TEST_SUITE(suite_sllNodeCreate){
 	MU_RUN_TEST(test_sllNodeCreate_badInput);
 	MU_RUN_TEST(test_sllNodeCreate_initialValues);
 }
-
+//sllInsertAtHead
+MU_TEST(test_sllInsertAtHead_badInput){
+	int dataSize = sizeof(int);
+	SingleLinkedList *list = sllCreate(dataSize);
+	mu_check(list);
+	int data=10;
+	SLLNode *node = sllNodeCreate(list, &data);
+	mu_check(node);
+	mu_assert(sllInsertAtHead(NULL,node) == NULL, "sllInsertAtHead should return NULL with NULL list input");
+	mu_assert(sllInsertAtHead(list,NULL) == NULL, "sllInsertAtHead should return NULL with NULL node input");
+	mu_assert(sllInsertAtHead(NULL,NULL) == NULL, "sllInsertAtHead should return NULL with NULL list and node input");
+}
+MU_TEST_SUITE(suite_sllInsertAtHead){
+	MU_RUN_TEST(test_sllInsertAtHead_badInput);
+}
 int main(){
 	MU_RUN_SUITE(suite_sllCreate);
 	MU_RUN_SUITE(suite_sllNodeCreate);
+	MU_RUN_SUITE(suite_sllInsertAtHead);
 	MU_REPORT();
 }

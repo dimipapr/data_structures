@@ -7,6 +7,8 @@
 #define SLL_NODES_MAX 512
 #define SLL_NODE_DATA_BYTES_MAX 512
 
+#define SLL_NULL_LIST -1
+
 /**
  * Struct representing a generic single linked list node
  */

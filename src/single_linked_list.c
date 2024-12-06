@@ -27,3 +27,19 @@ SLLNode *sllNodeCreate(SingleLinkedList* pList, void* pData){
     node->pNext = NULL;
     return node;
 }
+
+SLLNode* sllInsertAtHead(SingleLinkedList *pList, SLLNode* pNode){
+    if(pList==NULL || pNode==NULL)return NULL;
+    return NULL;
+}
+
+int sllLength(SingleLinkedList *pList){
+    if(pList == NULL)return SLL_NULL_LIST;
+    SLLNode *node = pList->pHead;
+    int count=0;
+    while(node){
+        count++;
+        node=node->pNext;
+    }
+    return count;
+}
