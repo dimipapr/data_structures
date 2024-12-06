@@ -53,9 +53,26 @@ MU_TEST_SUITE(suite_sllNodeCreate){
 	MU_RUN_TEST(test_sllNodeCreate_badInput);
 	MU_RUN_TEST(test_sllNodeCreate_initialValues);
 }
+//sllInsertAt
+MU_TEST(test_sllInsertAt_badInput){
+	SingleLinkedList* pList = sllCreate(sizeof(int));
+	mu_check(pList);
+	int data=10;
+	SLLNode* pNode = sllNodeCreate(pList,&data);
+	mu_check(pNode);
+	mu_assert(sllInsertAt(NULL,pNode,SLL_INDEX_HEAD)==NULL,"sllInsertAt should return NULL with NULL list input");
+	mu_assert(sllInsertAt(pList,NULL,SLL_INDEX_HEAD)==NULL,"sllInsertAt should return NULL with NULL node input");
+	mu_assert(sllInsertAt(NULL,NULL,SLL_INDEX_HEAD)==NULL,"sllInsertAt should return NULL with NULL list and node input");
+	sllNodeDestroy(pNode);
+	sllDestroy(pList);
+}
+MU_TEST_SUITE(suite_sllInsertAt){
+	MU_RUN_TEST(test_sllInsertAt_badInput);
+}
 
 int main(){
 	MU_RUN_SUITE(suite_sllCreate);
 	MU_RUN_SUITE(suite_sllNodeCreate);
+	MU_RUN_SUITE(suite_sllInsertAt);
 	MU_REPORT();
 }
